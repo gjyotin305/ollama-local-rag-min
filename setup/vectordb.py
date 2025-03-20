@@ -12,21 +12,21 @@ class Ingestion(object):
     def __init__(self, folder_path: str):
         self.folder_path = folder_path
 
-        def extract_text_from_pdf(self, file_path: str) -> str:
-            text = ""
-            try:
-                with open(file_path, 'rb') as file:
-                    reader = PyPDF2.PdfReader(file)
-                    for page_num in range(len(reader.pages)):
-                        page = reader.pages[page_num]
-                        text += page.extract_text() + "\n"
-            except Exception as e:
-                print(f"Error extracting text from {file_path}: {e}")
-                return ""
-            
-            # Clean up text
-            text = re.sub(r'\s+', ' ', text)  # Replace multiple whitespaces with a single space
-            return text.strip()
+    def extract_text_from_pdf(self, file_path: str) -> str:
+        text = ""
+        try:
+            with open(file_path, 'rb') as file:
+                reader = PyPDF2.PdfReader(file)
+                for page_num in range(len(reader.pages)):
+                    page = reader.pages[page_num]
+                    text += page.extract_text() + "\n"
+        except Exception as e:
+            print(f"Error extracting text from {file_path}: {e}")
+            return ""
+        
+        # Clean up text
+        text = re.sub(r'\s+', ' ', text)  # Replace multiple whitespaces with a single space
+        return text.strip()
     
     def split_text_into_chunks(
         self,
